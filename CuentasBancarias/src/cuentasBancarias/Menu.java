@@ -34,7 +34,7 @@ public class Menu {
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 			opc = leer.nextLine();
-			
+
 			if (opc.isEmpty())
 				opc = "0";
 
@@ -46,16 +46,15 @@ public class Menu {
 				}
 			}
 
-			if ((contadorDeControl == opc.length()) && (Integer.valueOf(opc) > 0) && (Integer.valueOf(opc) < 11)) {
+			if (!((contadorDeControl == opc.length()) && (Integer.valueOf(opc) > 0) && (Integer.valueOf(opc) < 11))) {
 
-			} else {
 				System.err.println("Error. La opción a escoger debe ser un dígito entre 1 y 10.");
 				opc = "0";
 			}
 
-			return Integer.valueOf(opc);
+		} while (!(Integer.valueOf(opc) <= 10 && Integer.valueOf(opc) >= 1));
 
-		} while (Integer.valueOf(opc) != 10);
+		return Integer.valueOf(opc);
 
 	}
 

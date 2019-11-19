@@ -56,6 +56,11 @@ public class CuentaBancaria {
 			System.out.println("Escriba la cantidad que desea ingresar (pulse ENTER para salir): ");
 			ingreso = leer.nextLine();
 
+			if (ingreso.substring(0, 1).equalsIgnoreCase(".")) {
+				System.err.println("Error. Sea preciso con el tipo de dato que introduce.");
+				continue;
+			}
+
 			if (ingreso.isEmpty())
 				break;
 
@@ -82,7 +87,7 @@ public class CuentaBancaria {
 			} else {
 				System.err.println(
 						"Error. No pueden ingresarse cantidades negativas, con espacios o que contengan carácteres especiales. Si no quiere realizar ningún ingreso, introduzca 0 o pulse ENTER.");
-				continue ingresaDeNuevo;
+				continue;
 			}
 
 			saldoActual += Double.valueOf(ingreso);
@@ -106,7 +111,12 @@ public class CuentaBancaria {
 			contadorControlDeComas = 0;
 			System.out.println("Escriba la cantidad que desea retirar (pulse ENTER para salir): ");
 			efectivoRetirado = leer.nextLine();
-
+			
+			if (efectivoRetirado.substring(0, 1).equalsIgnoreCase(".")) {
+				System.err.println("Error. Sea preciso con el tipo de dato que introduce.");
+				continue;
+			}
+			
 			if (efectivoRetirado.isEmpty())
 				break;
 
@@ -134,12 +144,12 @@ public class CuentaBancaria {
 			} else {
 				System.err.println(
 						"Error. No se pueden retirar cantidades de efectivo negativas, con espacios o que contengan carácteres especiales. Si no quiere retirar efectivo, introduzca 0 o pulse ENTER.");
-				continue retiraDeNuevo;
+				continue;
 			}
-			
+
 			if (Double.valueOf(efectivoRetirado) > saldoActual) {
 				System.err.println("Error. Saldo insuficiente.");
-				continue retiraDeNuevo;
+				continue;
 			}
 
 			saldoActual -= Double.valueOf(efectivoRetirado);
@@ -148,34 +158,5 @@ public class CuentaBancaria {
 		} while (contadorDeControl != efectivoRetirado.length());
 
 	}
-
-	public String getNombreTitular() {
-		return nombreTitular;
-	}
-
-	public void setNombreTitular(String nombreTitular) {
-		this.nombreTitular = nombreTitular;
-	}
-
-	public String getCcc() {
-		return ccc;
-	}
-
-	public void setCcc(String ccc) {
-		this.ccc = ccc;
-	}
-
-	public double getSaldoActual() {
-		return saldoActual;
-	}
-
-	public void setSaldoActual(double saldoActual) {
-		this.saldoActual = saldoActual;
-	}
-
-	@Override
-	public String toString() {
-		return "CuentaBancaria [nombreTitular=" + nombreTitular + ", ccc=" + ccc + ", saldoActual=" + saldoActual + "]";
-	}
-
+	
 }
