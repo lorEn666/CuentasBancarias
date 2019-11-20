@@ -6,8 +6,7 @@ public class Validacion {
 
 	public static CuentaBancaria validaNombreYcccTitular() {
 		Scanner leer = new Scanner(System.in);
-		String nombre;
-		String codigoCuenta;
+		String nombre, codigoCuenta;
 		boolean despliegaMenu = false;
 
 		do {
@@ -18,7 +17,7 @@ public class Validacion {
 			codigoCuenta = validaEstructuraCcc();
 
 			despliegaMenu = comprobacionDigitosDeControl(codigoCuenta);
-			
+
 		} while (!despliegaMenu);
 
 		CuentaBancaria cuenta = new CuentaBancaria(nombre, codigoCuenta);
@@ -26,7 +25,7 @@ public class Validacion {
 
 	}
 
-	public static String validaNombre() {
+	private static String validaNombre() {
 		Scanner leer = new Scanner(System.in);
 		String nombreValidacion;
 		String comprobacionNombre = " 1234567890ªº!|·@#$%&¬/()=?'¿¡`^*+][¨´}{Ç-_.:,;<>\\";
@@ -60,14 +59,29 @@ public class Validacion {
 		return nombreValidacion;
 	}
 
-	public static String letraCapital(String nombreCapital) {
+	private static String letraCapital(String nombreCapital) {
 
 		nombreCapital = (nombreCapital.substring(0, 1).toUpperCase()
 				+ nombreCapital.substring(1, nombreCapital.length()).toLowerCase());
 		return nombreCapital;
 	}
 
-	public static String validaEstructuraCcc() {
+	private static int controlDeBloque(String cccComprobar) {
+		int contadorHayNumero = 0;
+		String comprobacionNumerica = "1234567890";
+
+		for (int i = 0; i < cccComprobar.length(); i++) {
+			for (int j = 0; j < comprobacionNumerica.length(); j++) {
+				if (cccComprobar.substring(i, i + 1).equalsIgnoreCase(comprobacionNumerica.substring(j, j + 1))) {
+					contadorHayNumero++;
+				}
+			}
+		}
+
+		return contadorHayNumero;
+	}
+
+	private static String validaEstructuraCcc() {
 		Scanner leer = new Scanner(System.in);
 		String codigoCuentaValidable;
 		String comprobacionNumerica = "1234567890";
@@ -88,14 +102,7 @@ public class Validacion {
 				continue;
 			}
 
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < comprobacionNumerica.length(); j++) {
-					if (codigoCuentaValidable.substring(i, i + 1)
-							.equalsIgnoreCase(comprobacionNumerica.substring(j, j + 1))) {
-						contadorControlDeBloque++;
-					}
-				}
-			}
+			contadorControlDeBloque = controlDeBloque(codigoCuentaValidable.substring(0, 4));
 
 			if (contadorControlDeBloque != 4) {
 				System.err.println(
@@ -103,15 +110,7 @@ public class Validacion {
 				continue;
 			}
 
-			contadorControlDeBloque = 0;
-			for (int i = 5; i < 9; i++) {
-				for (int j = 0; j < comprobacionNumerica.length(); j++) {
-					if (codigoCuentaValidable.substring(i, i + 1)
-							.equalsIgnoreCase(comprobacionNumerica.substring(j, j + 1))) {
-						contadorControlDeBloque++;
-					}
-				}
-			}
+			contadorControlDeBloque = controlDeBloque(codigoCuentaValidable.substring(5, 9));
 
 			if (contadorControlDeBloque != 4) {
 				System.err.println(
@@ -119,15 +118,7 @@ public class Validacion {
 				continue;
 			}
 
-			contadorControlDeBloque = 0;
-			for (int i = 10; i < 12; i++) {
-				for (int j = 0; j < comprobacionNumerica.length(); j++) {
-					if (codigoCuentaValidable.substring(i, i + 1)
-							.equalsIgnoreCase(comprobacionNumerica.substring(j, j + 1))) {
-						contadorControlDeBloque++;
-					}
-				}
-			}
+			contadorControlDeBloque = controlDeBloque(codigoCuentaValidable.substring(10, 12));
 
 			if (contadorControlDeBloque != 2) {
 				System.err.println(
@@ -135,27 +126,22 @@ public class Validacion {
 				continue;
 			}
 
-			contadorControlDeBloque = 0;
-			for (int i = 13; i < 23; i++) {
-				for (int j = 0; j < comprobacionNumerica.length(); j++) {
-					if (codigoCuentaValidable.substring(i, i + 1)
-							.equalsIgnoreCase(comprobacionNumerica.substring(j, j + 1))) {
-						contadorControlDeBloque++;
-					}
-				}
-			}
+			contadorControlDeBloque = controlDeBloque(codigoCuentaValidable.substring(13, 23));
 
 			if (contadorControlDeBloque != 10) {
 				System.err.println(
 						"Error. Los 10 dígitos referentes al número de cuenta no pueden contener datos no numéricos. Inserte datos válidos.");
 				continue;
 			}
+
 			estructuraDeDatosCorrecta = true;
+
 		} while (!estructuraDeDatosCorrecta);
+
 		return codigoCuentaValidable;
 	}
 
-	public static boolean comprobacionDigitosDeControl(String codigoCcc) {
+	private static boolean comprobacionDigitosDeControl(String codigoCcc) {
 		int primerDigitoDeControl = 0;
 
 		primerDigitoDeControl += Integer.valueOf(codigoCcc.substring(0, 1)) * 4;

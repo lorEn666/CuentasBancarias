@@ -45,8 +45,7 @@ public class CuentaBancaria {
 		Scanner leer = new Scanner(System.in);
 		String ingreso;
 		String comprobacionIngreso = ".1234567890";
-		int contadorDeControl;
-		int contadorControlDeComas;
+		int contadorDeControl, contadorControlDeComas;
 
 		ingresaDeNuevo:
 
@@ -56,13 +55,13 @@ public class CuentaBancaria {
 			System.out.println("Escriba la cantidad que desea ingresar (pulse ENTER para salir): ");
 			ingreso = leer.nextLine();
 
+			if (ingreso.isEmpty())
+				break;
+
 			if (ingreso.substring(0, 1).equalsIgnoreCase(".")) {
 				System.err.println("Error. Sea preciso con el tipo de dato que introduce.");
 				continue;
 			}
-
-			if (ingreso.isEmpty())
-				break;
 
 			for (int i = 0; i < ingreso.length(); i++) {
 				if ((ingreso.substring(i, i + 1)).equalsIgnoreCase(".")) {
@@ -101,8 +100,7 @@ public class CuentaBancaria {
 		Scanner leer = new Scanner(System.in);
 		String efectivoRetirado;
 		String comprobacionRetiradaEfectivo = ".1234567890";
-		int contadorDeControl;
-		int contadorControlDeComas;
+		int contadorDeControl, contadorControlDeComas;
 
 		retiraDeNuevo:
 
@@ -111,14 +109,14 @@ public class CuentaBancaria {
 			contadorControlDeComas = 0;
 			System.out.println("Escriba la cantidad que desea retirar (pulse ENTER para salir): ");
 			efectivoRetirado = leer.nextLine();
-			
+
+			if (efectivoRetirado.isEmpty())
+				break;
+
 			if (efectivoRetirado.substring(0, 1).equalsIgnoreCase(".")) {
 				System.err.println("Error. Sea preciso con el tipo de dato que introduce.");
 				continue;
 			}
-			
-			if (efectivoRetirado.isEmpty())
-				break;
 
 			for (int i = 0; i < efectivoRetirado.length(); i++) {
 				if ((efectivoRetirado.substring(i, i + 1)).equalsIgnoreCase(".")) {
@@ -158,5 +156,5 @@ public class CuentaBancaria {
 		} while (contadorDeControl != efectivoRetirado.length());
 
 	}
-	
+
 }
